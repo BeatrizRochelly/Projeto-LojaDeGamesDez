@@ -1,0 +1,2 @@
+# Projeto-LojaDeGamesDez
+Projeto desenvolvido no Bootcamp da Generation Brasil. Foi usando STS e linguagem Java. Fiz também um CRUD completo do recurso Produto (6 métodos) e o CRUD métodos completos do recurso Categoria (6). Criei o Relacionamento do tipo One to Many entre as Classes Categoria e Produto. Realizei todas as boas práticas estudadas nas primeiras sessões sobre Spring (Model, Repository e Controller) e por fim testei toda a API utilizando o Insomnia
