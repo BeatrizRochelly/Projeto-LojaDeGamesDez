@@ -3,6 +3,8 @@ package com.generation.gamesdez.controller;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,13 +55,13 @@ public class ProdutoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ProdutoModel> post (ProdutoModel produtos){
+	public ResponseEntity<ProdutoModel> post (@RequestBody @Valid ProdutoModel produtos){
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(produtos));
 	
 	}
 	
 	@PutMapping
-	public ResponseEntity<ProdutoModel> put (@RequestBody ProdutoModel produtos){
+	public ResponseEntity<ProdutoModel> put (@RequestBody @Valid ProdutoModel produtos){
 		return ResponseEntity.status(HttpStatus.OK).body(repository.save(produtos));
 	}
 	
