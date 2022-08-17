@@ -1,0 +1,95 @@
+package com.generation.gamesdez.repository;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+
+import com.generation.gamesdez.model.UsuarioModel;
+
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+public class UsuarioRepositoryTest {
+    
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
+	@BeforeAll
+	void start(){
+
+		usuarioRepository.deleteAll();
+
+		usuarioRepository.save(new UsuarioModel(0L, "João da Silva", "joao@email.com.br", "13465278", "https://i.imgur.com/FETvs2O.jpg"));
+		
+		usuarioRepository.save(new UsuarioModel(0L, "Manuela da Silva", "manuela@email.com.br", "13465278", "https://i.imgur.com/NtyGneo.jpg"));
+		
+		usuarioRepository.save(new UsuarioModel(0L, "Adriana da Silva", "adriana@email.com.br", "13465278", "https://i.imgur.com/mB3VM2N.jpg"));
+
+        usuarioRepository.save(new UsuarioModel(0L, "Paulo Antunes Silva", "paulo@email.com.br", "13465278", "https://i.imgur.com/JR7kUFU.jpg"));
+        
+        usuarioRepository.save(new UsuarioModel(0L, "Maria Laura Silva", "maria@email.com.br", "13465278", "https://i.imgur.com/JR7kUFU.jpg"));
+
+        usuarioRepository.save(new UsuarioModel(0L, "Miguel Luiz", "miguel@email.com.br", "13465278", "https://i.imgur.com/JR7kUFU.jpg"));
+
+
+	}
+
+	@Test
+	@DisplayName("Retorna 1 usuario")
+	public void deveRetornarUmUsuario() {
+
+		Optional<UsuarioModel> usuario = usuarioRepository.findByUsuario("joao@email.com.br");
+
+		assertTrue(usuario.get().getUsuario().equals("joao@email.com.br"));
+	}
+	
+
+	@Test
+	@DisplayName("Retorna 3 usuarios")
+	public void deveRetornarTresUsuarios() {
+
+		List<UsuarioModel> listaDeUsuarios = usuarioRepository.findAllByNomeContainingIgnoreCase("Silva");
+
+		assertEquals(3, listaDeUsuarios.size());
+		
+		assertTrue(listaDeUsuarios.get(0).getNome().equals("João da Silva"));
+		assertTrue(listaDeUsuarios.get(1).getNome().equals("Manuela da Silva"));
+		assertTrue(listaDeUsuarios.get(2).getNome().equals("Adriana da Silva"));
+		
+	}
+	
+	@Test
+	@DisplayName("Retorna 5 usuario")
+	public void deveRetornarCincoUsuarios() {
+
+		List<UsuarioModel> listaDeUsuarios = usuarioRepository.findAllByNomeContainingIgnoreCase("Silva");
+
+		assertEquals(4, listaDeUsuarios.size());
+		
+		assertTrue(listaDeUsuarios.get(0).getNome().equals("João da Silva"));
+		assertTrue(listaDeUsuarios.get(1).getNome().equals("Manuela da Silva"));
+		assertTrue(listaDeUsuarios.get(2).getNome().equals("Adriana da Silva"));
+		assertTrue(listaDeUsuarios.get(3).getNome().equals("Paulo Antunes Silva"));
+		assertTrue(listaDeUsuarios.get(4).getNome().equals("Maria Laura Silva"));
+		
+		
+		
+	}
+
+	
+	@AfterAll
+	public void end() {
+		usuarioRepository.deleteAll();
+	}
+	
+}
