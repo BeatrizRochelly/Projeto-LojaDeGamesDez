@@ -43,18 +43,6 @@ public class ProdutoModel {
 	@JsonIgnoreProperties("produto")
 	private UsuarioModel usuario;
 	
-	
-
-	public ProdutoModel(Long id,String nomeProduto,BigDecimal preco, boolean produtoNovo, String descricao) {
-		this.id = id;
-		this.nomeProduto = nomeProduto;
-		this.preco = preco;
-		this.produtoNovo = produtoNovo;
-		this.descricao = descricao;
-	}
-	
-	public ProdutoModel() {  }
-
 	//Métodos Get e Set 
 	public Long getId() {
 		return id;
